@@ -26,11 +26,8 @@ print('Number of rows are:', curs.execute(query1).fetchone())
 # How many users who reviewed at least 100 Nature in the category also reviewed
 # at least 100 in the Shopping category?
 query2 = 'SELECT COUNT(*) FROM review WHERE Nature >=100 AND Shopping >=100';
-print('Users who reviewed at least 100 in both Nature and Shopping:', curs.execute(query2).fetchone())
+print('Users who reviewed at least 100 in both Nature and Shopping:',
+      curs.execute(query2).fetchone())
 
 curs.close()
 conn.commit()
-
-"""
-Please help with the long lines
-"""

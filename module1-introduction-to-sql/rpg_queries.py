@@ -33,29 +33,59 @@ print('Total number of weapons:', curs.execute(query7).fetchone())
 print('Total number of Items that are not weapons:', 174-37)
 
 # How many Items does each character have (first 20 rows):
-query9 = 'SELECT COUNT(CCI.item_id) FROM charactercreator_character as CC, charactercreator_character_inventory as CCI WHERE CCI.character_id = CC.character_id GROUP BY CC.character_id';
-# tried this and was getting errors:
-# query9 = str('SELECT COUNT(CCI.item_id)' + 'FROM charactercreator_character as CC,'
-#             + 'charactercreator_character_inventory as CCI' +
-#             'WHERE CCI.character_id = CC.character_id GROUP BY CC.character_id');
-print('Total num of items per character:', curs.execute(query9).fetchmany(20))
+query9 = """
+SELECT COUNT(CCI.item_id)
+FROM charactercreator_character as CC,
+charactercreator_character_inventory as CCI
+WHERE CCI.character_id = CC.character_id
+GROUP BY CC.character_id;
+"""
+print('Number of items per character:', curs.execute(query9).fetchmany(20))
 
 # How many weapons does each character have (first 20 rows):
-query10 = 'SELECT COUNT(AW.item_ptr_id) FROM charactercreator_character_inventory as CCI, charactercreator_character as CC, armory_item as AI, armory_weapon as AW WHERE CCI.character_id = CC.character_id AND CCI.item_id = AI.item_id AND AI.item_id = AW.item_ptr_id GROUP BY CC.character_id';
-print('Total num of weapons per character:', curs.execute(query10).fetchmany(20))
+query10 = """
+SELECT COUNT(AW.item_ptr_id)
+FROM charactercreator_character_inventory as CCI,
+charactercreator_character as CC,
+armory_item as AI,
+armory_weapon as AW
+WHERE CCI.character_id = CC.character_id
+AND CCI.item_id = AI.item_id
+AND AI.item_id = AW.item_ptr_id
+GROUP BY CC.character_id;
+"""
+print('Number of weapons per character:', curs.execute(query10).fetchmany(20))
 
 # On average, how many Items does each character have:
-query11 = 'SELECT AVG(avg_items) FROM(SELECT COUNT(CCI.item_id) as avg_items FROM charactercreator_character as CC, charactercreator_character_inventory as CCI WHERE CCI.character_id = CC.character_id GROUP BY CC.character_id) AS T';
+query11 = """
+SELECT AVG(avg_items)
+FROM(SELECT COUNT(CCI.item_id) as avg_items
+FROM charactercreator_character as CC,
+charactercreator_character_inventory as CCI
+WHERE CCI.character_id = CC.character_id
+GROUP BY CC.character_id) AS T;
+"""
 print('Average num of items per character:', curs.execute(query11).fetchone())
 
 # On average, how many Weapons does each character have:
-query12 = 'SELECT AVG(avg_weaps) FROM (SELECT COUNT(AW.item_ptr_id) as avg_weaps FROM charactercreator_character_inventory as CCI, charactercreator_character as CC, armory_item as AI, armory_weapon as AW WHERE CCI.character_id = CC.character_id AND CCI.item_id = AI.item_id AND AI.item_id = AW.item_ptr_id GROUP BY CC.character_id) AS Z';
+query12 = """
+SELECT AVG(avg_weaps)
+FROM (SELECT COUNT(AW.item_ptr_id) as avg_weaps
+FROM charactercreator_character_inventory as CCI,
+charactercreator_character as CC,
+armory_item as AI,
+armory_weapon as AW
+WHERE CCI.character_id = CC.character_id
+AND CCI.item_id = AI.item_id
+AND AI.item_id = AW.item_ptr_id
+GROUP BY CC.character_id) AS Z;
+"""
 print('Average num of weapons per character:', curs.execute(query12).fetchone())
 
 curs.close()
 conn.commit()
 
 """
-PLEASE SHOW ME HOW TO MAKE THE LINES SHORTER & HOW TO DO ITEMS THAT AREN'T
-WEAPONS--I TRIED SEVERAL THINGS AND WOULDN'T WORK. PLEASE PLEASE
+HOW TO DO ITEMS THAT AREN'T WEAPONS--I TRIED SEVERAL THINGS AND WOULDN'T WORK.
+PLEASE PLEASE
 """
