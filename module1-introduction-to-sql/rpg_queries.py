@@ -32,7 +32,7 @@ print('Total number of weapons:', curs.execute(query7).fetchone())
 # How many are not weapons?
 print('Total number of Items that are not weapons:', 174-37)
 
-# How many Items does each character have (first 20 rows):
+# How many Items does each character have (first 20 rows)?
 query9 = """
 SELECT COUNT(CCI.item_id)
 FROM charactercreator_character as CC,
@@ -42,7 +42,7 @@ GROUP BY CC.character_id;
 """
 print('Number of items per character:', curs.execute(query9).fetchmany(20))
 
-# How many weapons does each character have (first 20 rows):
+# How many weapons does each character have (first 20 rows)?
 query10 = """
 SELECT COUNT(AW.item_ptr_id)
 FROM charactercreator_character_inventory as CCI,
@@ -56,7 +56,7 @@ GROUP BY CC.character_id;
 """
 print('Number of weapons per character:', curs.execute(query10).fetchmany(20))
 
-# On average, how many Items does each character have:
+# On average, how many Items does each character have?
 query11 = """
 SELECT AVG(avg_items)
 FROM(SELECT COUNT(CCI.item_id) as avg_items
@@ -67,7 +67,7 @@ GROUP BY CC.character_id) AS T;
 """
 print('Average num of items per character:', curs.execute(query11).fetchone())
 
-# On average, how many Weapons does each character have:
+# On average, how many Weapons does each character have?
 query12 = """
 SELECT AVG(avg_weaps)
 FROM (SELECT COUNT(AW.item_ptr_id) as avg_weaps
