@@ -1,19 +1,36 @@
 import pandas as pd
 import numpy as np
 import sqlite3
-# from sqlalchemy import create_engine
-# engine = create_engine('sqlite://', echo=False)
 
-
+# Read in CSV file.
 df = pd.read_csv('buddymove_holidayiq.csv')
 
-# to get rid of space in column names
+# Get rid of space in column names.
 df.columns = df.columns.str.replace(' ', '_')
 
-# check shape and null values to verify correctly imported dataframe.
+# Check shape and null values to verify correctly imported dataframe.
 print(df.shape)
 print(df.isnull().sum())
 
-# make connection and creare new database file.
+# Make connection and create new database file.
 conn = sqlite3.connect('buddymove_holidayiq.sqlite3')
-df.to_sql('review', con=sqlalchemy.engine.Engine)
+curs = conn.cursor()
+
+curs.execute('DROP TABLE review;')
+df.to_sql('review', con=conn)
+
+# How many rows are there?
+query1 = 'SELECT COUNT(*) FROM review';
+print('Number of rows are:', curs.execute(query1).fetchone())
+
+# How many users who reviewed at least 100 Nature in the category also reviewed
+# at least 100 in the Shopping category?
+query2 = 'SELECT COUNT(*) FROM review WHERE Nature >=100 AND Shopping >=100';
+print('Users who reviewed at least 100 in both Nature and Shopping:', curs.execute(query2).fetchone())
+
+curs.close()
+conn.commit()
+
+"""
+Please help with the long lines
+"""

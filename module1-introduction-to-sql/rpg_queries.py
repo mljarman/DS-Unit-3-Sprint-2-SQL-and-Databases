@@ -52,9 +52,10 @@ print('Average num of items per character:', curs.execute(query11).fetchone())
 query12 = 'SELECT AVG(avg_weaps) FROM (SELECT COUNT(AW.item_ptr_id) as avg_weaps FROM charactercreator_character_inventory as CCI, charactercreator_character as CC, armory_item as AI, armory_weapon as AW WHERE CCI.character_id = CC.character_id AND CCI.item_id = AI.item_id AND AI.item_id = AW.item_ptr_id GROUP BY CC.character_id) AS Z';
 print('Average num of weapons per character:', curs.execute(query12).fetchone())
 
+curs.close()
+conn.commit()
+
 """
 PLEASE SHOW ME HOW TO MAKE THE LINES SHORTER & HOW TO DO ITEMS THAT AREN'T
 WEAPONS--I TRIED SEVERAL THINGS AND WOULDN'T WORK. PLEASE PLEASE
 """
-curs.close()
-conn.commit()
