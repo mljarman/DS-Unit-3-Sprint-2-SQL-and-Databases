@@ -5,7 +5,6 @@ curs = conn.cursor()
 
 #How many total Characters are there?
 query1 = 'SELECT COUNT(*) FROM charactercreator_character';
-# curs.execute(query1).fetchone()
 print('Total number of characters:', curs.execute(query1).fetchone())
 
 # How many of each specific sublcass?
