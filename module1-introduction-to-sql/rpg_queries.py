@@ -28,7 +28,7 @@ print('Total number of items:', curs.execute(query6).fetchone())
 # How many of the Items are weapons?
 query7 = 'SELECT COUNT(*) FROM armory_weapon';
 print('Total number of weapons:', curs.execute(query7).fetchone())
-curs.execute(query7)
+
 # How many are not weapons?
 print('Total number of Items that are not weapons:', 174-37)
 
