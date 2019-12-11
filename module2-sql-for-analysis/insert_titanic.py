@@ -27,7 +27,7 @@ passengers = sq_curs.execute('SELECT * from sqtitanic;').fetchall()
 
 # Database information from elephantSQL:
 dbname = 'dbname from elephantSQL'
-user = 'user_name from elephantSQL'
+user = 'user from elephantSQL'
 password = 'password from elephantSQL'
 host = 'host from elephantSQL'
 
@@ -37,12 +37,14 @@ pg_conn = pg2.connect(dbname=dbname, user=user, password=password, host=host)
 pg_curs = pg_conn.cursor()
 
 # need to run this code again if ever run script again:
-# pg_curs.execute('DROP TYPE sex;')
+# pg_curs.execute('DROP TYPE gender;')
 
 # Create enumerated type for Sex
-query1 = "CREATE TYPE sex AS ENUM ('male', 'female');"
+query1 = "CREATE TYPE gender AS ENUM ('male', 'female');"
 pg_curs.execute(query1)
 
+# need to run this code again if ever run script again:
+# pg_curs.execute('DROP TABLE insert_titanic')
 
 # Create insert_titanic table:
 create_insert_titanic = """
@@ -51,7 +53,7 @@ Passenger_ID SERIAL PRIMARY KEY,
 Survived INT,
 Pclass INT,
 Name VARCHAR(85),
-Sex sex,
+Sex gender,
 Age FLOAT,
 Siblings_Spouses_Aboard INT,
 Parents_Children_Aboard INT,
@@ -61,13 +63,6 @@ Fare FLOAT
 # Execute:
 pg_curs.execute(create_insert_titanic)
 
-# Close cursor and commit changes so database shows up:
-pg_curs.close()
-pg_conn.commit()
-
-#Reconnect to insert_titanic and reopen cursor:
-pg_conn = pg2.connect(dbname=dbname, user=user, password=password, host=host)
-pg_curs = pg_conn.cursor()
 
 # For loop to insert all data from sqlite3 table into postgres table:
 for passenger in passengers:
