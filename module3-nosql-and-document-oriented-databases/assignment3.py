@@ -26,7 +26,7 @@ db.test.drop()
 character1 = (2, "Optio dolorem ex a", 0, 0, 10, 1, 1, 1, 1)
 db.test.insert_one({'rpg_character': character1})
 
-# Insert RPG data 1 at a time option 2(seems better since get column names):
+# Insert RPG data 1 at a time option 2(seems better since get feature names):
 db.test.insert_one({
 'character_id': 3,
 'name': 'Minus c',
@@ -41,7 +41,7 @@ db.test.insert_one({
 
 """
 Too add multiple characters at once. Tried to define a function to only change
-the name at the character ID but couldn't get it to work. Maybe we can go over.
+the name and the character ID but couldn't get it to work. Maybe we can go over.
 Tried something similar to last sprint challenge.
 """
 
