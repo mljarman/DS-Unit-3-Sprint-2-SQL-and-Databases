@@ -92,13 +92,16 @@ def titanic_queries():
     print('Average fare by class:', curs.fetchall())
 # Do any passengers have the same name?
     query9 = """
-        SELECT Name, count(*)
-        FROM insert_titanic
-        GROUP BY Name
-        HAVING count(*) > 1;
+        SELECT COUNT(*) - COUNT(DISTINCT(Name))
+        FROM insert_titanic;
         """
     curs.execute(query9)
-    print('Do any passengers have the same name?', curs.fetchall())
+    results = curs.fetchone()[0]
+    if (results > 0):
+        print('Number of same names: {}'.format(results))
+    else:
+        print('No same names')
+
 
 
 if __name__ == "__main__":
